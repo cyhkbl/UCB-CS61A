@@ -34,3 +34,5 @@ python在赋值时，从右往左先查询值，再赋值。
 2
 None None
 ```
+
+print 将显示不带引号的文本，但是 return 将保留引号。
