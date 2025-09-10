@@ -36,3 +36,35 @@ None None
 ```
 
 print 将显示不带引号的文本，但是 return 将保留引号。
+
+Traceback 中，最近一次调用位于底部。
+
+## doctest
+
+doctest 可以快速为你的代码编写测试。
+
+```python
+def square(x):
+    """
+    >>> square(2)
+    4
+    >>> square(3)
+    9
+    """
+    return x * x
+```
+
+要运行doctest，输入：`python3 -m doctest file.py`
+
+命令行工具有一个 -v 选项，代表详细（verbose）。
+
+`python3 -m doctest file.py -v` 除了告诉您哪些文档测试失败之外，还会告诉您哪些文档测试通过了。
+
+## 交互式调试
+
+通过交互方式使用 Python：`python3 -i file.py`
+
+## print与 return 输出时的区别
+
+在输出字符串时，print() 输出内容，不带引号。
+交互式环境自动显示表达式结果，用单引号包裹字符串。

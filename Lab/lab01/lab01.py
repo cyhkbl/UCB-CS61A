@@ -8,7 +8,7 @@ def digit(n, k):
     >>> digit(3579, 10)
     0
     """
-    return ____
+    return n // 10**k % 10
 
 
 def middle(a, b, c):
@@ -26,7 +26,14 @@ def middle(a, b, c):
     >>> middle(30, 5, 40)
     30
     """
-    return ____
+    x=min(a,b,c)
+    y=max(a,b,c)
+    if a!=x and a!=y:
+        return a
+    elif b!=x and b!=y:
+        return b
+    else:
+        return c
 
 
 def falling(n, k):
@@ -41,7 +48,12 @@ def falling(n, k):
     >>> falling(4, 0)
     1
     """
-    "*** YOUR CODE HERE ***"
+    sum=1
+    for i in range(k):
+        sum*=n-i
+    if k==0:
+        return 1
+    return sum
 
 
 def divisible_by_k(n, k):
