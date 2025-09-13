@@ -65,8 +65,11 @@ def largest_factor(n):
     >>> largest_factor(13) # factors are 1, 13
     1
     """
-    "*** YOUR CODE HERE ***"
-
+    for i in range(n-1, 0, -1):
+        if n % i == 0:
+            largest = i
+            break
+    return largest
 
 def hailstone(n):
     """Print the hailstone sequence starting at n and return its
@@ -87,5 +90,14 @@ def hailstone(n):
     >>> b
     1
     """
-    "*** YOUR CODE HERE ***"
+    step = 0
+    while n != 1:
+        print(n)
+        step += 1
+        if n % 2 == 0:
+            n = n // 2
+        else:
+            n = n * 3 + 1
+    print(1)
+    return step + 1
 
