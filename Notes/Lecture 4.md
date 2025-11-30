@@ -1,5 +1,7 @@
 # Lecture 4: Higher-Order Functions
 
+> 高阶函数：接受另一个函数作为参数的函数
+
 ## 函数作为形参和返回值
 
 ### 形参
