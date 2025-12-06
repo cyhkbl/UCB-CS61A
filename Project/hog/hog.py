@@ -316,6 +316,9 @@ def boar_strategy(score, opponent_score, threshold=11, num_rolls=6):
     points, and returns NUM_ROLLS otherwise. Ignore the Sus Fuss rule.
     """
     # BEGIN PROBLEM 10
+    brawl_points = boar_brawl(score, opponent_score)
+    if brawl_points >= threshold:
+        return 0
     return num_rolls  # Remove this line once implemented.
     # END PROBLEM 10
 
@@ -325,17 +328,34 @@ def sus_strategy(score, opponent_score, threshold=11, num_rolls=6):
     THRESHOLD points, and returns NUM_ROLLS otherwise. Consider both the Boar Brawl and
     Suss Fuss rules."""
     # BEGIN PROBLEM 11
+    sus_fuss_score = sus_update(0, score, opponent_score) # sus_update已经包含了boar brawl规则！这里比较容易错的就是再用了一次boar brawl
+    if sus_fuss_score - score >= threshold:
+        return 0
     return num_rolls  # Remove this line once implemented.
     # END PROBLEM 11
 
 
 def final_strategy(score, opponent_score):
     """Write a brief description of your final strategy.
-
-    *** YOUR DESCRIPTION HERE ***
+    If you know the goal score (by default it is 100), there's no benefit to scoring more than the goal. Check whether you can win by rolling 0, 1 or 2 dice. If you are in the lead, you might decide to take fewer risks.
+    Instead of using a threshold, roll 0 whenever it would give you more points on average than rolling 6.
     """
     # BEGIN PROBLEM 12
-    return 6  # Remove this line once implemented.
+    # Check if rolling 0 gives enough points to win
+    if sus_update(0, score, opponent_score) >= GOAL:
+        return 0
+    
+    # Check if rolling 1 or 2 dice can win
+    for num_rolls in [1, 2]:
+        if sus_update(num_rolls, score, opponent_score) >= GOAL:
+            return num_rolls
+    
+    # If in the lead, play safer with fewer rolls
+    if score > opponent_score:
+        return 3
+    
+    # Otherwise, roll 6 dice
+    return 6
     # END PROBLEM 12
 
 
