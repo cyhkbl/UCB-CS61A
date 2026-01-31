@@ -1,3 +1,6 @@
+from unittest import result
+
+
 def shuffle(s):
     """Return a shuffled list that interleaves the two halves of s.
 
@@ -12,7 +15,14 @@ def shuffle(s):
     ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
     """
     assert len(s) % 2 == 0, 'len(seq) must be even'
-    "*** YOUR CODE HERE ***"
+    s0 = s[:len(s)//2]
+    s1 = s[len(s)//2:]
+    result = zip(s0, s1)
+    shuffled = []
+    for a, b in result:
+        shuffled.append(a)
+        shuffled.append(b)
+    return shuffled
 
 
 def deep_map(f, s):
@@ -37,7 +47,12 @@ def deep_map(f, s):
     >>> s3 is s2[1]
     True
     """
-    "*** YOUR CODE HERE ***"
+    for i in s:
+        if type(i) == list:
+            deep_map(f, i)
+        else:
+            s_index = s.index(i)
+            s[s_index] = f(i)
 
 
 HW_SOURCE_FILE=__file__
@@ -46,12 +61,12 @@ HW_SOURCE_FILE=__file__
 def planet(mass):
     """Construct a planet of some mass."""
     assert mass > 0
-    "*** YOUR CODE HERE ***"
+    return ['planet', mass]
 
 def mass(p):
     """Select the mass of a planet."""
     assert is_planet(p), 'must call mass on a planet'
-    "*** YOUR CODE HERE ***"
+    return p[1]
 
 def is_planet(p):
     """Whether p is a planet."""
@@ -103,7 +118,11 @@ def balanced(m):
     >>> check(HW_SOURCE_FILE, 'balanced', ['Index'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    if is_planet(m):
+        return True
+    if length(left(m)) * total_mass(end(left(m))) != length(right(m)) * total_mass(end(right(m))):
+        return False
+    return balanced(end(left(m))) and balanced(end(right(m)))
 
 
 def berry_finder(t):
@@ -123,7 +142,12 @@ def berry_finder(t):
     >>> berry_finder(t)
     True
     """
-    "*** YOUR CODE HERE ***"
+    if label(t) == 'berry':
+        return True
+    for b in branches(t):
+        if berry_finder(b):
+            return True
+    return False
 
 
 HW_SOURCE_FILE=__file__
@@ -138,7 +162,9 @@ def max_path_sum(t):
     >>> max_path_sum(t2) # 5, 2, 10
     17
     """
-    "*** YOUR CODE HERE ***"
+    if is_leaf(t):
+        return label(t)
+    return label(t) + max(max_path_sum(b) for b in branches(t))
 
 
 def mobile(left, right):
