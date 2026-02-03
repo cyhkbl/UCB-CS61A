@@ -9,7 +9,15 @@ def hailstone(n):
     >>> next(hail_gen)
     1
     """
-    "*** YOUR CODE HERE ***"
+    if n == 1:
+        while True:
+            yield 1
+    elif n % 2 == 1:
+        yield n
+        yield from hailstone(3 * n + 1)
+    if n % 2 == 0:
+        yield n
+        yield from hailstone(n // 2)
 
 
 def merge(a, b):
@@ -30,11 +38,14 @@ def merge(a, b):
     a_val, b_val = next(a), next(b)
     while True:
         if a_val == b_val:
-            "*** YOUR CODE HERE ***"
+            yield a_val
+            a_val, b_val = next(a), next(b)
         elif a_val < b_val:
-            "*** YOUR CODE HERE ***"
+            yield a_val
+            a_val = next(a)
         else:
-            "*** YOUR CODE HERE ***"
+            yield b_val
+            b_val = next(b)
 
 
 def stair_ways(n):
@@ -50,7 +61,14 @@ def stair_ways(n):
     >>> list(s_w) # Ensure you're not yielding extra
     []
     """
-    "*** YOUR CODE HERE ***"
+    if n == 0:
+        yield []
+    else:
+        if n >= 2:
+            for way in stair_ways(n - 2):
+                yield [2] + way
+        for way in stair_ways(n - 1):
+            yield [1] + way
 
 
 def yield_paths(t, value):
@@ -89,10 +107,10 @@ def yield_paths(t, value):
     [[0, 2], [0, 2, 1, 2]]
     """
     if label(t) == value:
-        yield ____
+        yield [label(t)]
     for b in branches(t):
-        for ____ in ____:
-            yield ____
+        for path in yield_paths(b, value):
+            yield [label(t)] + path
 
 
 
